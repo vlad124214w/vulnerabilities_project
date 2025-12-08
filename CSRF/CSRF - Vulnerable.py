@@ -1,3 +1,4 @@
+#Сущность уязвимости
 from flask import Flask, request, render_template_string, session, redirect, url_for
 import sqlite3
 import os
