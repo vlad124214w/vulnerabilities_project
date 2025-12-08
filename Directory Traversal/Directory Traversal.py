@@ -1,3 +1,4 @@
+#Сущность атаки
 from flask import Flask, request, send_file, abort
 import os
 
