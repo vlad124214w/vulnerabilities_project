@@ -1,3 +1,4 @@
+#Работа с задачкой
 # vul = "Russia: Moscow, Saint Petersburg, Novosibirsk, USA: New York, Los Angeles, Chicago, France: Paris, Marseille, Lyon"
 
 # ХОЧУ УВИДЕТЬ ФУНКЦИЮ, КОТОРОЙ ДАЮ НАЗВАНИЕ СТРАНЫ - ВЫВОДИТ ЕЁ ГОРОДА И ИХ КОЛИЧЕСТВО.
