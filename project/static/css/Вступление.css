@@ -1,0 +1,77 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Шапка с заголовком и авторизацией */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: palevioletred;
+  position: relative;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+/* Авторизация */
+.authorization {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+}
+
+.foto {
+  width: 100vw;        /* на всю ширину */
+  display: block;      /* делаем блоковым элементом */
+  margin: 0; padding: 0; /* сброс отступов */
+}
+
+/* Основной раздел  */
+Main section {
+  padding: 20px;
+}
+
+/* Раздел про брендбук */
+.brandbook {
+  margin-bottom: 20px;
+}
+
+/* Место для фото */
+.photo-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 колонки одинаковой ширины */
+  gap: 200px; /* зазор между изображениями */
+  max-width: 1000px; /* ограничение по ширине контейнера */
+  margin: 0 auto; /* по центру страницы */
+}
+
+.photo {
+  width: 100%;
+  aspect-ratio: 1 / 1; /* сделать изображение квадратным */
+  object-fit: cover; /* заполнять блок, сохраняя пропорции */
+  border: 1px solid #ccc; /* граница */
+  display: block;
+}
+
+/* Расположение авторизации */
+.authorization-location {
+  display: flex;
+  gap: 10px;
+}
+
+.authorization-form input[type="text"],
+.authorization-form input[type="password"] {
+  padding: 5px 10px;
+  font-size: 14px;
+}
+
+.authorization-form button {
+  padding: 5px 10px;
+  font-size: 14px;
+  cursor: pointer;
+}

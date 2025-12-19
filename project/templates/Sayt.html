@@ -1,0 +1,203 @@
+<!-- <!DOCTYPE html>
+<html lang="ru">
+<head>
+  <title>А-Ф-Р-О-Д-И-Т-А</title>
+  <link rel="stylesheet" href="Вступление.css">
+</head>
+<body>
+  <header>
+    <h1>Добро пожаловать на брендбук Дарьи</h1>
+    <div class="authorization">
+      <form method="post" action="">
+        <input type="text" name="username" placeholder="Логин">
+        <button type="submit">Войти</button>
+      </form>
+    </div>
+  </header>
+
+<div class="foto">
+  <img src="1. Start.jpg" alt="Описание" style="width: 100%; height: auto; display: block;">
+</div>
+
+  <Main section>
+    <section class="brandbook">
+      <h2>О брендбуке</h2>
+      <p>Этот брендбук — больше, чем просто свод правил. 
+        Это манифест нашей философии, хранилище наших ценностей, компас для каждого члена команды «Афродита». 
+        Он создан, чтобы вдохновлять, направлять и объединять нас в стремлении к совершенству. 
+        Здесь вы найдете ключевые элементы, определяющие нашу уникальность: 
+        от визуального языка и голоса бренда до нашей непоколебимой приверженности качеству и этике.</p>
+    </section>
+    <section class="photo-section">
+        <h2>MOOD BOARD</h2>
+        <div class="photo-container">
+            <img class="photo" src="2. one.jpg">
+            <img class="photo" src="3. two.jpg">
+            <img class="photo" src="4. three.jpg">
+            <img class="photo" src="5. fore.jpg">
+            <img class="photo" src="6. five.jpg">
+            <img class="photo" src="7. six.jpg">
+        </div>
+</section>
+  </Main section>
+</body>
+</html> -->
+
+
+<!-- <!DOCTYPE html>
+<html lang="ru">
+<head>
+  <title>А-Ф-Р-О-Д-И-Т-А</title>
+  <link rel="stylesheet" href="Вступление.css">
+</head>
+<body>
+  <header>
+    <h1>Добро пожаловать на брендбук Дарьи</h1>
+    <div class="authorization">
+      {% if current_user %}
+        <p>{{ greeting }}</p>
+      {% else %}
+      <form class="authorization-location" method="post" action="">
+        <input type="text" placeholder="Логин" name="username">
+        <input type="password" placeholder="Пароль" name="password">
+        <button type="submit">Войти</button>
+      </form>
+      {% endif %}
+    </div>
+  </header>
+
+<div class="foto">
+  <img src="1. Start.jpg" alt="Описание" style="width: 100%; height: auto; display: block;">
+</div>
+
+<main>
+  <section class="brandbook">
+    <h2>О брендбуке</h2>
+    <p>Этот брендбук — больше, чем просто свод правил. 
+      Это манифест нашей философии, хранилище наших ценностей, компас для каждого члена команды «Афродита». 
+      Он создан, чтобы вдохновлять, направлять и объединять нас в стремлении к совершенству. 
+      Здесь вы найдете ключевые элементы, определяющие нашу уникальность: 
+      от визуального языка и голоса бренда до нашей непоколебимой приверженности качеству и этике.</p>
+  </section>
+  <section class="photo-section">
+    <h2>MOOD BOARD</h2>
+    <div class="photo-container">
+      <img class="photo" src="2. one.jpg">
+      <img class="photo" src="3. two.jpg">
+      <img class="photo" src="4. three.jpg">
+      <img class="photo" src="5. fore.jpg">
+      <img class="photo" src="6. five.jpg">
+      <img class="photo" src="7. six.jpg">
+    </div>
+  </section>
+</main>
+
+</body>
+</html> -->
+
+<!-- <!DOCTYPE html>
+<html lang="ru">
+<head>
+  <title>А-Ф-Р-О-Д-И-Т-А</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/Вступление.css') }}">
+</head>
+<body>
+  <header>
+    <h1>Добро пожаловать на брендбук Дарьи</h1>
+    <div class="authorization">
+      {% if current_user %}
+        <p>{{ greeting | safe }}</p>
+      {% else %}
+      <form class="authorization-location" method="post" action="">
+        <input type="text" placeholder="Логин" name="username">
+        <input type="password" placeholder="Пароль" name="password">
+        <button type="submit">Войти</button>
+      </form>
+      {% endif %}
+    </div>
+  </header>
+
+<div class="foto">
+  <img src="{{ url_for('static', filename='images/1. Start.jpg') }}" alt="Описание" style="width: 100%; height: auto; display: block;">
+</div>
+
+<main>
+  <section class="brandbook">
+    <h2>О брендбуке</h2>
+    <p>Этот брендбук — больше, чем просто свод правил. ...</p>
+  </section>
+  <section class="photo-section">
+    <h2>MOOD BOARD</h2>
+    <div class="photo-container">
+      <img class="photo" src="{{ url_for('static', filename='images/2. one.jpg') }}">
+      <img class="photo" src="{{ url_for('static', filename='images/3. two.jpg') }}">
+      <img class="photo" src="{{ url_for('static', filename='images/4. three.jpg') }}">
+      <img class="photo" src="{{ url_for('static', filename='images/5. fore.jpg') }}">
+      <img class="photo" src="{{ url_for('static', filename='images/6. five.jpg') }}">
+      <img class="photo" src="{{ url_for('static', filename='images/7. six.jpg') }}">
+    </div>
+  </section>
+</main>
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <title>А-Ф-Р-О-Д-И-Т-А</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/Вступление.css') }}">
+</head>
+<body>
+  <header>
+    <h1>Добро пожаловать на брендбук Дарьи</h1>
+    <div class="authorization">
+      {% if current_user %}
+        <p>{{ greeting | safe }}</p>
+      {% else %}
+      <form class="authorization-location" method="post" action="">
+        <!-- В данный момент я осознал, что мне помогает в изучении - Бог IT!!!! ( P.s. Александр - ты лучший!!! ) -->
+         <!-- Саша, если тебе никто не говорил, что ты гений, то знай - ты ГЕНИЙ! -->>
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}">
+        <input type="text" placeholder="Логин" name="username">
+        <input type="password" placeholder="Пароль" name="password">
+        <button type="submit">Войти</button>
+      </form>
+      {% endif %}
+    </div>
+  </header>
+
+<div class="foto">
+  <img src="{{ url_for('static', filename='images/1. Start.jpg') }}" alt="Описание" style="width: 100%; height: auto; display: block;">
+</div>
+
+<main>
+  <section class="brandbook">
+    <h2>О брендбуке</h2>
+    <p>Этот брендбук — больше, чем просто свод правил. ...</p>
+  </section>
+  <section class="photo-section">
+    <h2>MOOD BOARD</h2>
+    <div class="photo-container">
+      <img class="photo" src="{{ url_for('static', filename='images/2. one.jpg') }}">
+      <img class="photo" src="{{ url_for('static', filename='images/3. two.jpg') }}">
+      <img class="photo" src="{{ url_for('static', filename='images/4. three.jpg') }}">
+      <img class="photo" src="{{ url_for('static', filename='images/5. fore.jpg') }}">
+      <img class="photo" src="{{ url_for('static', filename='images/6. five.jpg') }}">
+      <img class="photo" src="{{ url_for('static', filename='images/7. six.jpg') }}">
+    </div>
+  </section>
+</main>
+</body>
+</html>
