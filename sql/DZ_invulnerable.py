@@ -1,5 +1,6 @@
 import sqlite3
 
+password="Secret_password"
 # Создаем или подключаемся к базе данных SQLite
 connection_sqlite = sqlite3.connect('db3.db', check_same_thread=False)
 cursor_sqlite = connection_sqlite.cursor()
