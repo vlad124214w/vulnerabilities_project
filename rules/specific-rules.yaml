@@ -1,0 +1,79 @@
+rules:
+  # 1. Правило для XSS в Use_XSS.py
+  - id: xss-flask-template-injection
+    patterns:
+      - pattern: |
+          $CODE = request.args.get('code')
+          return render_template_string(f"...{$CODE}...")
+      - pattern-not: |
+          escape($CODE)
+    message: "XSS-уязвимость: прямое вставление пользовательского ввода в шаблон без экранирования"
+    languages: [python]
+    severity: ERROR
+
+  # 2. Правило для SQL-инъекции в DZ_vulnerable.py
+  - id: exact-sql-injection-dzvulnerable
+    patterns:
+      - pattern: |
+          username = input(...)
+          password = input(...)
+          entrance = f"SELECT * FROM users WHERE username = '{username}' AND password = '{password}'"
+          cursor_mysql.execute(entrance)
+    message: "ТОЧНАЯ SQL-инъекция: пользовательский ввод прямо в f-строку SQL запроса"
+    languages: [python]
+    severity: ERROR
+
+  # 3. Правило для LFI в File Inclusion, LFI.py
+  - id: lfi-php-direct-include
+    patterns:
+      - pattern: |
+          if (isset($_GET['page'])) {
+              include($_GET['page']);
+          }
+      - pattern-not: |
+          realpath($base_dir . $file)
+      - pattern-not: |
+          strpos($file_path, realpath($base_dir)) !== 0
+    message: "LFI-уязвимость: прямое включение $_GET['page'] без проверки пути"
+    languages: [php]
+    severity: ERROR
+
+  # 4. Дополнительное правило для XSS (точное)
+  - id: xss-flask-direct-render
+    patterns:
+      - pattern: |
+          @app.route("/xss")
+          def index():
+              code = request.args.get('code')
+              return render_template_string(f"<h1>Ваш ввод: </h1> <h2>  {code} </h2>")
+      - pattern-not: |
+          from markupsafe import escape
+          return render_template_string("..." + escape(code) + "...")
+    message: "XSS-уязвимость: прямой рендеринг request.args.get() в шаблон Flask"
+    languages: [python]
+    severity: ERROR
+
+  # 5. Правило для SQL-инъекции с конкатенацией
+  - id: sql-injection-concat-input
+    patterns:
+      - pattern: |
+          entrance = f"SELECT * FROM users WHERE username = '{username}' AND password = '{password}'"
+          cursor.execute(entrance)
+      - pattern-not: |
+          cursor.execute("SELECT * FROM users WHERE username = ? AND password = ?", (username, password))
+    message: "SQL-инъекция: конкатенация пользовательского ввода в SQL-запрос через f-строку"
+    languages: [python]
+    severity: ERROR
+
+  # 6. Правило для unsafe include (общее)
+  - id: php-unsafe-include
+    patterns:
+      - pattern: |
+          include($GET_VAR);
+      - pattern: |
+          require($GET_VAR);
+      - pattern-not: |
+          $file_path = realpath($base_dir . $file)
+    message: "LFI-уязвимость: небезопасное включение файла на основе пользовательского ввода"
+    languages: [php]
+    severity: ERROR

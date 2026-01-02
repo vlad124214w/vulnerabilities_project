@@ -1,0 +1,126 @@
+rules:
+  # 1. CSRF-уязвимость (отсутствие проверки токена)
+  - id: csrf-missing-token
+    patterns:
+      - pattern: |
+          @app.route(...)
+          def $FUNC(...):
+            ...
+            if request.method == 'POST':
+              ...
+      - pattern-not: |
+          @app.route(...)
+          def $FUNC(...):
+            ...
+            if request.method == 'POST':
+              ...
+              validate_csrf_token()
+    message: "CSRF-уязвимость: отсутствует проверка CSRF-токена в POST-обработчике"
+    languages: [python]
+    severity: ERROR
+
+  # 2. CSRF-атака (злоумышленная форма)
+  - id: csrf-malicious-form
+    patterns:
+      - pattern: '<form ... action="http://localhost:$PORT/..." method="POST">'
+      - pattern-not: '<input ... name="csrf_token"'
+    message: "Найдена потенциальная CSRF-атакующая форма с внешним action"
+    languages: [html]
+    severity: WARNING
+
+  # 3. Directory Traversal (уязвимый путь)
+  - id: directory-traversal-unsafe
+    patterns:
+      - pattern: |
+          file_path = os.path.join($BASE_DIR, $FILENAME)
+      - pattern-not: |
+          os.path.commonprefix([os.path.realpath($PATH), $BASE]) == $BASE
+    message: "Directory Traversal: используется небезопасное формирование пути без проверки"
+    languages: [python]
+    severity: ERROR
+
+  # 4. SQL-инъекция (конкатенация строк в запросе)
+  - id: sql-injection-concatenation
+    patterns:
+      - pattern: |
+          cursor.execute(f"SELECT ... $USER_INPUT ...")
+      - pattern-not: |
+          cursor.execute("SELECT ... ? ...", ($USER_INPUT,))
+    message: "SQL-инъекция: использование конкатенации строк с пользовательским вводом в SQL-запросе"
+    languages: [python]
+    severity: ERROR
+
+  # 5. Race Condition (отсутствие блокировки)
+  - id: race-condition-no-lock
+    patterns:
+      - pattern: |
+          $VAR = $GLOBAL_VAR
+          time.sleep(...)
+          $GLOBAL_VAR = $VAR + 1
+      - pattern-not: |
+          with lock:
+    message: "Race Condition: отсутствует блокировка при изменении общего ресурса с задержкой"
+    languages: [python]
+    severity: WARNING
+
+  # 6. XSS (отсутствие экранирования вывода)
+  - id: xss-unsafe-render
+    patterns:
+      - pattern: |
+          render_template_string(f"... $USER_INPUT ...")
+      - pattern-not: |
+          escape($USER_INPUT)
+    message: "XSS-уязвимость: пользовательский ввод не экранирован при выводе в шаблон"
+    languages: [python]
+    severity: ERROR
+
+  # 7. Небезопасная загрузка файлов (Python)
+  - id: unsafe-file-upload-python
+    patterns:
+      - pattern: |
+          send_file($USER_INPUT)
+      - pattern-not: |
+          os.path.basename($USER_INPUT)
+    message: "Небезопасная загрузка файлов: прямой доступ к файлу по пользовательскому вводу"
+    languages: [python]
+    severity: ERROR
+
+  # 8. LFI-уязвимость (PHP)
+  - id: lfi-include-unsafe
+    patterns:
+      - pattern: 'include($_GET[...]);'
+    message: "LFI-уязвимость: прямое включение пользовательского ввода"
+    languages: [php]
+    severity: ERROR
+
+  # 9. Отсутствие CSRF-токена в форме (HTML)
+  - id: missing-csrf-token-in-form
+    patterns:
+      - pattern: '<form method="POST">'
+      - pattern-not: '<input name="csrf_token"'
+      - pattern-not: '<input name="_csrf_token"'
+    message: "В форме отсутствует CSRF-токен"
+    languages: [html]
+    severity: ERROR
+
+  # 10. Небезопасная строка запроса (Cities and Countries)
+  - id: unsafe-string-query
+    patterns:
+      - pattern: |
+          if $VAR.startswith($INPUT + ':'):
+      - pattern-not: |
+          $VAR = $VAR.strip()
+    message: "Небезопасная обработка строк: прямое сравнение с пользовательским вводом"
+    languages: [python]
+    severity: WARNING
+
+  # 11. general
+  - id: python-sqli-input-to-execute
+    languages: [python]
+    severity: ERROR
+    message: "Possible SQL injection: data from input() flows into execute()"
+    mode: taint
+    pattern-sources:
+      - pattern: input(...)
+    pattern-sinks:
+      - pattern: $CUR.execute(...)
